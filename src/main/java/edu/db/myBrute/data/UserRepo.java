@@ -1,7 +1,6 @@
 package edu.db.myBrute.data;
 
 import edu.db.myBrute.domain.GameUser;
-import edu.db.myBrute.domain.Weapon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,6 +49,7 @@ public class UserRepo {
     }
 
     public GameUser currentUser() {
+//        TODO: Add current user policy
         GameUser user = null;
 
         return user;

@@ -5,4 +5,5 @@ import javax.servlet.http.HttpServlet;
 
 @WebServlet("/attack")
 public class AttackCtrl extends HttpServlet {
+
 }

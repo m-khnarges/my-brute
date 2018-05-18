@@ -15,6 +15,7 @@
 </head>
 <body>
 <h2>Attack</h2>
-
+<%--TODO: Add attack log table--%>
+<a href="result">Finish</a>
 </body>
 </html>
