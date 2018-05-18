@@ -33,13 +33,13 @@ public class UserRepo {
     }
 
     public GameUser signUp(String username, String password) {
-        GameUser gameUser = new GameUser();
-        return gameUser;
+        GameUser user = new GameUser();
+        return user;
     }
 
     public GameUser login(String username, String password) {
-        GameUser gameUser = new GameUser();
-        return gameUser;
+        GameUser user = new GameUser();
+        return user;
     }
 
     public List<GameUser> getOpponents() {
@@ -56,6 +56,12 @@ public class UserRepo {
 
     public GameUser currentUser() {
         GameUser user = null;
+
+        return user;
+    }
+
+    public GameUser loadUserByUsername(String username) {
+        GameUser user = new GameUser();
 
         return user;
     }

@@ -1,7 +1,9 @@
 package edu.db.myBrute.controller;
 
 import edu.db.myBrute.data.UserRepo;
+import edu.db.myBrute.domain.GameUser;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,19 +13,18 @@ import java.io.IOException;
 @WebServlet("/opponents")
 public class OpponentsCtrl extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserRepo userRepo = UserRepo.getInstance();
+        GameUser user = userRepo.currentUser();
 
-        if (userRepo.currentUser() == null) {
+        if (user == null) {
             response.sendRedirect("/login");
         }
 
+        request.setAttribute("user", user);
         request.setAttribute("opponents", userRepo.getOpponents());
         // We can use getOpponentsFor(user) to get specific opponents for this user
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-
+        request.getRequestDispatcher("opponents.jsp").forward(request, response);
     }
 }

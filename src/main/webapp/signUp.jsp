@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>Sign Up</title>
-    <script src="js/submit.js" language="JavaScript" type="text/javascript"></script>
+    <script src="assets/submit.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 <h2>Sign Up</h2>

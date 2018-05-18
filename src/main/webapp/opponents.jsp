@@ -41,12 +41,48 @@
             <td><c:out value="${opponent.getHero().getHeroType()}"/></td>
             <td>
                 <form action="playGame" method="POST" style="margin-bottom: 0">
-                    <input type="hidden" name="username" value="${opponent.getUsername()}"/>
+                    <input type="hidden" name="opponentUsername" value="${opponent.getUsername()}"/>
                     <input type="submit" name="playGame" value="PLAY GAME" style="border: none; background: none" onclick="submit('playGame')">
                 </form>
             </td>
         </tr>
     </c:forEach>
+</table>
+
+<table cellpadding=5>
+    <tr>
+        <th>ID</th>
+        <td><%--@elvariable id="user" type="edu.db.myBrute.domain.GameUser"--%>
+            <c:out value="${user.getHero().getHeroId()}"/></td>
+    </tr>
+    <tr>
+        <th>Username</th>
+        <td><c:out value="${user.getUsername()}"/></td>
+    </tr>
+    <tr>
+        <th>Level</th>
+        <td><c:out value="${user.getLevel().getLevelId()}"/></td>
+    </tr>
+    <tr>
+        <th>Health Point</th>
+        <td><c:out value="${user.getHealthPoint()}"/></td>
+    </tr>
+    <tr>
+        <th>Strength</th>
+        <td><c:out value="${user.getHero().getStrength()}"/></td>
+    </tr>
+    <tr>
+        <th>Agility</th>
+        <td><c:out value="${user.getHero().getAgility()}"/></td>
+    </tr>
+    <tr>
+        <th>Speed</th>
+        <td><c:out value="${user.getHero().getSpeed()}"/></td>
+    </tr>
+    <tr>
+        <th>Type</th>
+        <td><c:out value="${user.getHero().getHeroType()}"/></td>
+    </tr>
 </table>
 
 <a href="/">Return to Main Menu</a>
