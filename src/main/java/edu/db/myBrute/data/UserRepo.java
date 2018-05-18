@@ -48,6 +48,12 @@ public class UserRepo {
         return opponents;
     }
 
+    public List<GameUser> getOpponentsFor(GameUser user) {
+        List<GameUser> opponents = new ArrayList<GameUser>();
+
+        return opponents;
+    }
+
     public GameUser currentUser() {
         GameUser user = null;
 

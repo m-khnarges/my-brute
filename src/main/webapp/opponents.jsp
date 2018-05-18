@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Opponents</title>
+    <script src="js/submit.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 <h2>Opponents</h2>
@@ -39,9 +40,9 @@
             <td><c:out value="${opponent.getHero().getSpeed()}"/></td>
             <td><c:out value="${opponent.getHero().getHeroType()}"/></td>
             <td>
-                <form action="playGame" style="margin-bottom: 0">
+                <form action="playGame" method="POST" style="margin-bottom: 0">
                     <input type="hidden" name="username" value="${opponent.getUsername()}"/>
-                    <input type="submit" name="playGame" value="PLAY GAME" style="border: none; background: none">
+                    <input type="submit" name="playGame" value="PLAY GAME" style="border: none; background: none" onclick="submit('playGame')">
                 </form>
             </td>
         </tr>
