@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Home</title>
+    <link rel="icon" href="assets/favicon.ico">
 </head>
 <body>
 <h2>Home</h2>
@@ -27,6 +28,10 @@
     <tr>
         <th>Level</th>
         <td><c:out value="${user.getLevel().getLevelId()}"/></td>
+    </tr>
+    <tr>
+        <th>Experience</th>
+        <td><c:out value="${user.getExperience()}"/></td>
     </tr>
     <tr>
         <th>Health Point</th>
@@ -50,7 +55,27 @@
     </tr>
 </table>
 
-<a href="opponents">PLAY NOW!</a>
-<a href="/">Return to Main Menu</a>
+<table cellpadding=5>
+    <tr>
+        <th>ID</th>
+        <th>Level</th>
+        <th>Chance</th>
+        <th>Strength</th>
+        <th>Agility</th>
+        <th>Speed</th>
+    </tr>
+    <c:forEach var="weapon" items="${user.getWeapons()}">
+        <tr>
+            <td><c:out value="${weapon.getWeaponId}"/></td>
+            <td><c:out value="${opponent.getLevel().getLevelId}"/></td>
+            <td><c:out value="${opponent.getChance}"/></td>
+            <td><c:out value="${opponent.getStrength()}"/></td>
+            <td><c:out value="${opponent.getAgility()}"/></td>
+            <td><c:out value="${opponent.getSpeed()}"/></td>
+        </tr>
+    </c:forEach>
+</table>
+
+<a href="opponents" style="margin-top: 15px;">PLAY NOW!</a>
 </body>
 </html>

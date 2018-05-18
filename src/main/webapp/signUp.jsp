@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Sign Up</title>
+    <link rel="icon" href="assets/favicon.ico">
     <script src="assets/submit.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>

@@ -1,6 +1,7 @@
 package edu.db.myBrute.data;
 
 import edu.db.myBrute.domain.GameUser;
+import edu.db.myBrute.domain.Weapon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,12 +41,6 @@ public class UserRepo {
     public GameUser login(String username, String password) {
         GameUser user = new GameUser();
         return user;
-    }
-
-    public List<GameUser> getOpponents() {
-        List<GameUser> opponents = new ArrayList<GameUser>();
-
-        return opponents;
     }
 
     public List<GameUser> getOpponentsFor(GameUser user) {

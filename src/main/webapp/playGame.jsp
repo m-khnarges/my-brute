@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Play Game</title>
+    <link rel="icon" href="assets/favicon.ico">
 </head>
 <body>
 <h2>Home</h2>
@@ -64,7 +65,6 @@
     </tr>
 </table>
 
-<a href="opponents">ATTACK!</a>
-<a href="/">Return to Main Menu</a>
+<a href="attack?opponent=${opponent.getUsername()}" style="margin-top: 15px;">ATTACK!</a>
 </body>
 </html>

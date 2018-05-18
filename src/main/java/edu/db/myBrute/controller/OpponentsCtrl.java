@@ -17,14 +17,14 @@ public class OpponentsCtrl extends HttpServlet {
         UserRepo userRepo = UserRepo.getInstance();
         GameUser user = userRepo.currentUser();
 
-        if (user == null) {
-            response.sendRedirect("/login");
-        }
+//        if (user == null) {
+//            response.sendRedirect("/login");
+//        } else {
+            request.setAttribute("user", user);
 
-        request.setAttribute("user", user);
-        request.setAttribute("opponents", userRepo.getOpponents());
-        // We can use getOpponentsFor(user) to get specific opponents for this user
+            request.setAttribute("opponents", userRepo.getOpponentsFor(user));
 
-        request.getRequestDispatcher("opponents.jsp").forward(request, response);
+            request.getRequestDispatcher("opponents.jsp").forward(request, response);
+//        }
     }
 }

@@ -20,11 +20,12 @@ public class LoginCtrl extends HttpServlet {
                 request.setAttribute("message", "You are already logged in!");
 
                 request.getRequestDispatcher("error.jsp").forward(request, response);
+            } else {
+                userRepo.login(request.getParameter("username"), request.getParameter("password"));
+
+                response.sendRedirect("/home");
             }
 
-            userRepo.login(request.getParameter("username"), request.getParameter("password"));
-
-            response.sendRedirect("/home");
         } catch (IllegalArgumentException e) { // Wrong username or password
             request.setAttribute("message", e.getMessage());
 
