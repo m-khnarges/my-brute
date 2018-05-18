@@ -9,6 +9,7 @@ import java.util.List;
 
 public class UserRepo {
     private Connection connection;
+    private GameUser gameUser = null;
     private static UserRepo userRepo = new UserRepo();
 
     private UserRepo() {
@@ -39,7 +40,12 @@ public class UserRepo {
 
     public GameUser login(String username, String password) {
         GameUser user = new GameUser();
+        this.gameUser = gameUser;
         return user;
+    }
+
+    public void logout() {
+        this.gameUser = null;
     }
 
     public List<GameUser> getOpponentsFor(GameUser user) {
@@ -49,10 +55,7 @@ public class UserRepo {
     }
 
     public GameUser currentUser() {
-//        TODO: Add current user policy
-        GameUser user = null;
-
-        return user;
+        return this.gameUser;
     }
 
     public GameUser loadUserByUsername(String username) {
