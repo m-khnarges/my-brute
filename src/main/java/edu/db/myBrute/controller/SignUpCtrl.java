@@ -13,7 +13,7 @@ import java.io.IOException;
 public class SignUpCtrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserRepo userRepo = UserRepo.userRepo();
+        UserRepo userRepo = UserRepo.getInstance();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -28,7 +28,7 @@ public class SignUpCtrl extends HttpServlet {
         try {
             userRepo.signUp(username, password);
 
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("/login");
         } catch (IllegalStateException e) { // You have signed up before
             request.setAttribute("message", e.getMessage());
 

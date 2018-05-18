@@ -28,12 +28,13 @@ public class UserRepo {
         }
     }
 
-    public static UserRepo userRepo() {
+    public static UserRepo getInstance() {
         return userRepo;
     }
 
-    public void signUp(String username, String password) {
-
+    public GameUser signUp(String username, String password) {
+        GameUser gameUser = new GameUser();
+        return gameUser;
     }
 
     public GameUser login(String username, String password) {
@@ -45,5 +46,11 @@ public class UserRepo {
         List<GameUser> opponents = new ArrayList<GameUser>();
 
         return opponents;
+    }
+
+    public GameUser currentUser() {
+        GameUser user = null;
+
+        return user;
     }
 }
