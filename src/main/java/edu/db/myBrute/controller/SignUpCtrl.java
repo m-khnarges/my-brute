@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/signUp")
 public class SignUpCtrl extends HttpServlet {
@@ -29,7 +30,7 @@ public class SignUpCtrl extends HttpServlet {
             userRepo.signUp(username, password);
 
             response.sendRedirect("/login");
-        } catch (IllegalStateException e) { // You have signed up before
+        } catch (SQLException e) {
             request.setAttribute("message", e.getMessage());
 
             request.getRequestDispatcher("error.jsp").forward(request, response);

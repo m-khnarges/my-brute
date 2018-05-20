@@ -4,23 +4,15 @@ import java.util.List;
 
 public class GameUser {
     private String username;
-    private String password;
     private int experience;
-    private GameLevel level;
+    private int levelId;
     private int healthPoint;
+    private int leftFights;
     private Hero hero;
     private List<Weapon> weapons;
 
     public GameUser() {
-    }
-
-    public GameUser(String username, String password, int experience, GameLevel level, Hero hero, List<Weapon> weapons) {
-        this.username = username;
-        this.password = password;
-        this.experience = experience;
-        this.level = level;
-        this.hero = hero;
-        this.weapons = weapons;
+        hero = new Hero();
     }
 
     public String getUsername() {
@@ -31,14 +23,6 @@ public class GameUser {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getExperience() {
         return experience;
     }
@@ -47,12 +31,12 @@ public class GameUser {
         this.experience = experience;
     }
 
-    public GameLevel getLevel() {
-        return level;
+    public int getLevelId() {
+        return levelId;
     }
 
-    public void setLevel(GameLevel level) {
-        this.level = level;
+    public void setLevelId(int levelId) {
+        this.levelId = levelId;
     }
 
     public int getHealthPoint() {
@@ -61,6 +45,14 @@ public class GameUser {
 
     public void setHealthPoint(int healthPoint) {
         this.healthPoint = healthPoint;
+    }
+
+    public int getLeftFights() {
+        return leftFights;
+    }
+
+    public void setLeftFights(int leftFights) {
+        this.leftFights = leftFights;
     }
 
     public Hero getHero() {

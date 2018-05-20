@@ -17,16 +17,16 @@ public class PlayGameCtrl extends HttpServlet {
         UserRepo userRepo = UserRepo.getInstance();
         GameUser user = userRepo.currentUser();
         GameUser opponent = userRepo.loadUserByUsername(request.getParameter("opponentUsername"));
-        System.out.println(request.getParameter("opponentUsername"));
-//        if (user == null) {
-//            response.sendRedirect("/login");
-//        } else {
+
+        if (user == null) {
+            response.sendRedirect("/login");
+        } else {
             request.setAttribute("user", user);
 
             request.setAttribute("opponent", opponent);
 
             request.getRequestDispatcher("attack.jsp").forward(request, response);
-//        }
+        }
     }
 
     @Override

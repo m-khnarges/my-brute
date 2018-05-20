@@ -18,13 +18,13 @@ public class ResultCtrl extends HttpServlet {
 
         GameUser user = userRepo.currentUser();
 
-//        if (user == null) {
-//            response.sendRedirect("/login");
-//        } else {
+        if (user == null) {
+            response.sendRedirect("/login");
+        } else {
         request.setAttribute("winner", user);
         request.setAttribute("looser", user);
 
         request.getRequestDispatcher("result.jsp").forward(request, response);
-//        }
+        }
     }
 }

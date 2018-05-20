@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginCtrl extends HttpServlet {
@@ -27,6 +28,10 @@ public class LoginCtrl extends HttpServlet {
             }
 
         } catch (IllegalArgumentException e) { // Wrong username or password
+            request.setAttribute("message", e.getMessage());
+
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        } catch (SQLException e) {
             request.setAttribute("message", e.getMessage());
 
             request.getRequestDispatcher("error.jsp").forward(request, response);

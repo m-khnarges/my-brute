@@ -18,12 +18,12 @@ public class HomeCtrl extends HttpServlet {
 
         GameUser user = userRepo.currentUser();
 
-//        if (user == null) {
-//            response.sendRedirect("/login");
-//        } else {
+        if (user == null) {
+            response.sendRedirect("/login");
+        } else {
             request.setAttribute("user", user);
 
             request.getRequestDispatcher("home.jsp").forward(request, response);
-//        }
+        }
     }
 }
