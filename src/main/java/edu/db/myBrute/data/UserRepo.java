@@ -85,8 +85,33 @@ public class UserRepo {
         this.gameUser = null;
     }
 
-    public List<GameUser> getOpponentsFor(GameUser user) {
+    public List<GameUser> getOpponents() throws SQLException {
         List<GameUser> opponents = new ArrayList<GameUser>();
+
+        String query = "SELECT * FROM dbo.opponents WHERE Level_Id != ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setInt(1, gameUser.getLevelId());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            GameUser opponent = new GameUser();
+
+            opponent.setUsername(resultSet.getString("Username"));
+            opponent.setExperience(resultSet.getInt("Experience"));
+            opponent.setExperience(resultSet.getInt("Level_Id"));
+
+            opponent.setHealthPoint(resultSet.getInt("Health_Point"));
+            opponent.setLeftFights(resultSet.getInt("Left_fights"));
+            opponent.getHero().setStrength(resultSet.getInt("Strength"));
+            opponent.getHero().setAgility(resultSet.getInt("Agility"));
+            opponent.getHero().setSpeed(resultSet.getInt("Speed"));
+            opponent.getHero().setHeroType(resultSet.getInt("Hero_Type"));
+
+            opponents.add(opponent);
+        }
 
         return opponents;
     }

@@ -22,7 +22,7 @@ public class OpponentsCtrl extends HttpServlet {
         } else {
             request.setAttribute("user", user);
 
-            request.setAttribute("opponents", userRepo.getOpponentsFor(user));
+            request.setAttribute("opponents", userRepo.getOpponents());
 
             request.getRequestDispatcher("opponents.jsp").forward(request, response);
         }
