@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/opponents")
 public class OpponentsCtrl extends HttpServlet {
@@ -22,7 +23,11 @@ public class OpponentsCtrl extends HttpServlet {
         } else {
             request.setAttribute("user", user);
 
-            request.setAttribute("opponents", userRepo.getOpponents());
+            try {
+                request.setAttribute("opponents", userRepo.getOpponents());
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
 
             request.getRequestDispatcher("opponents.jsp").forward(request, response);
         }

@@ -66,14 +66,7 @@ public class UserRepo {
 
             resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                user.setHealthPoint(resultSet.getInt("Health_Point"));
-                user.setLeftFights(resultSet.getInt("Left_fights"));
-                user.getHero().setStrength(resultSet.getInt("Strength"));
-                user.getHero().setAgility(resultSet.getInt("Agility"));
-                user.getHero().setSpeed(resultSet.getInt("Speed"));
-                user.getHero().setHeroType(resultSet.getInt("Hero_Type"));
-            }
+            user = getHeroInfo(user, resultSet);
 
             this.gameUser = user;
         } else {
@@ -120,8 +113,45 @@ public class UserRepo {
         return this.gameUser;
     }
 
-    public GameUser loadUserByUsername(String username) {
+    public GameUser loadUserByUsername(String username) throws SQLException {
         GameUser user = new GameUser();
+        String query = "SELECT * FROM dbo.Game_User WHERE Username = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setString(1, username);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            user.setUsername(resultSet.getString("Username"));
+            user.setExperience(resultSet.getInt("Experience"));
+            user.setExperience(resultSet.getInt("Level_Id"));
+
+            query = "SELECT * FROM dbo.hero_info WHERE Username = ?";
+
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setString(1, username);
+
+            resultSet = preparedStatement.executeQuery();
+
+            user = getHeroInfo(user, resultSet);
+
+        }
+
+        return user;
+    }
+
+    private GameUser getHeroInfo(GameUser user, ResultSet resultSet) throws SQLException {
+        if (resultSet.next()) {
+            user.setHealthPoint(resultSet.getInt("Health_Point"));
+            user.setLeftFights(resultSet.getInt("Left_fights"));
+            user.getHero().setStrength(resultSet.getInt("Strength"));
+            user.getHero().setAgility(resultSet.getInt("Agility"));
+            user.getHero().setSpeed(resultSet.getInt("Speed"));
+            user.getHero().setHeroType(resultSet.getInt("Hero_Type"));
+        }
 
         return user;
     }
