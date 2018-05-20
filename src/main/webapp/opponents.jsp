@@ -17,6 +17,10 @@
 <body>
 <h2>Opponents</h2>
 
+<p><%--@elvariable id="user" type="edu.db.myBrute.domain.GameUser"--%>
+    You have <c:out value="${user.getLeftFigths()}"/> fights left!
+</p>
+
 <table cellpadding=5>
     <tr>
         <th>ID</th>
@@ -42,12 +46,18 @@
             <td><c:out value="${opponent.getHero().getAgility()}"/></td>
             <td><c:out value="${opponent.getHero().getSpeed()}"/></td>
             <td><c:out value="${opponent.getHero().getHeroType()}"/></td>
-            <td><a href="playGame?opponentUsername=${opponent.getUsername()}">Choose for Play</a></td>
+            <c:choose>
+                <c:when test="${user.getLeftFigths() > 0}">
+                    <td><a href="playGame?opponentUsername=${opponent.getUsername()}">Choose for Play</a></td>
+                </c:when>
+                <c:otherwise>
+                    <td></td>
+                </c:otherwise>
+            </c:choose>
         </tr>
     </c:forEach>
     <tr>
-        <td><%--@elvariable id="user" type="edu.db.myBrute.domain.GameUser"--%>
-        <c:out value="${user.getHero().getHeroId()}"/></td>
+        <td><c:out value="${user.getHero().getHeroId()}"/></td>
         <td><c:out value="${user.getUsername()}"/></td>
         <td><c:out value="${user.getLevel().getLevelId()}"/></td>
         <td><c:out value="${user.getExperience()}"/></td>

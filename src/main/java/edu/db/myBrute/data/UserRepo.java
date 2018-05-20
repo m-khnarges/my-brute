@@ -13,7 +13,6 @@ public class UserRepo {
 
     private UserRepo() {
         // Create a variable for the connection string.
-        // TODO: Change username & password
         String connectionUrl = "jdbc:sqlserver://localhost:1433;database=my_brute";
 
         try {

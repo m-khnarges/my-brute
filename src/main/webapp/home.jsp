@@ -77,5 +77,6 @@
 </table>
 
 <a href="opponents" style="margin-top: 15px;">PLAY NOW!</a>
+<a href="logout" style="margin-top: 15px;">LOGOUT</a>
 </body>
 </html>
