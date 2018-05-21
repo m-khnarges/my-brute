@@ -13,7 +13,7 @@ public class UserRepo {
 
     private UserRepo() {
         // Create a variable for the connection string.
-        String connectionUrl = "jdbc:sqlserver://localhost:1433;database=my_brute";
+        String connectionUrl = "jdbc:sqlserver://169.254.240.110:1433;database=my_brute";
 
         try {
             // Establish the connection.
@@ -154,5 +154,44 @@ public class UserRepo {
         }
 
         return user;
+    }
+
+    public void attack(String myUsername, String opponentUsername) throws SQLException {
+        String query = "EXEC Attacking ?, ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setString(1, myUsername);
+        preparedStatement.setString(2, opponentUsername);
+
+        preparedStatement.executeQuery();
+    }
+
+    public GameUser getWinner() throws SQLException {
+        GameUser winner = new GameUser();
+        String query = "SELECT TOP 1 Winner FROM dbo.attack ORDER BY Attack_Id DESC";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            winner.setUsername(resultSet.getString("Username"));
+            winner.setExperience(resultSet.getInt("Experience"));
+            winner.setExperience(resultSet.getInt("Level_Id"));
+
+            query = "SELECT * FROM dbo.hero_info WHERE Username = ?";
+
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setString(1, winner.getUsername());
+
+            resultSet = preparedStatement.executeQuery();
+
+            winner = getHeroInfo(winner, resultSet);
+
+        }
+
+        return winner;
     }
 }

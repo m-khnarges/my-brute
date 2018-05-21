@@ -65,6 +65,6 @@
     </tr>
 </table>
 
-<a href="attack?opponentUsername=${opponent.getUsername()}" style="margin-top: 15px;">ATTACK!</a>
+<a href="result?opponentUsername=${opponent.getUsername()}" style="margin-top: 15px;">ATTACK!</a>
 </body>
 </html>

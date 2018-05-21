@@ -9,22 +9,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/result")
 public class ResultCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserRepo userRepo = UserRepo.getInstance();
-
         GameUser user = userRepo.currentUser();
+        GameUser opponent;
+        GameUser winner;
 
         if (user == null) {
             response.sendRedirect("/login");
         } else {
-        request.setAttribute("winner", user);
-        request.setAttribute("looser", user);
+            try {
+                opponent = userRepo.loadUserByUsername(request.getParameter("opponentUsername"));
+                winner = userRepo.getWinner();
 
-        request.getRequestDispatcher("result.jsp").forward(request, response);
+                request.setAttribute("winner", winner);
+                request.setAttribute("looser", user.getUsername().equals(winner.getUsername()) ? opponent : user);
+
+                request.getRequestDispatcher("result.jsp").forward(request, response);
+            } catch (SQLException e) {
+                request.setAttribute("message", e.getMessage());
+
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
     }
 }
