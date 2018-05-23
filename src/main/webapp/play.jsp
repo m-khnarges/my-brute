@@ -10,57 +10,49 @@
 <%@ page isELIgnored="false" %>" %>
 <html>
 <head>
-    <title>Play Game</title>
+    <title>Play</title>
     <link rel="icon" href="assets/favicon.ico">
 </head>
 <body>
-<h2>Play Game</h2>
+<h2>Play</h2>
 <table cellpadding=5>
     <tr>
         <th></th>
-        <th>Your Information</th>
-        <th>Opponent Information</th>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Level</th>
+        <th>Experience</th>
+        <th>Health Point</th>
+        <th>Strength</th>
+        <th>Agility</th>
+        <th>Speed</th>
+        <th>Type</th>
     </tr>
     <tr>
-        <th>ID</th>
+        <th>Your Information</th>
         <td><%--@elvariable id="user" type="edu.db.myBrute.domain.GameUser"--%>
             <c:out value="${user.getHero().getHeroId()}"/></td>
+        <td><c:out value="${user.getUsername()}"/></td>
+        <td><c:out value="${user.getLevelId()}"/></td>
+        <td><c:out value="${user.getExperience()}"/></td>
+        <td><c:out value="${user.getHealthPoint()}"/></td>
+        <td><c:out value="${user.getHero().getStrength()}"/></td>
+        <td><c:out value="${user.getHero().getAgility()}"/></td>
+        <td><c:out value="${user.getHero().getSpeed()}"/></td>
+        <td><c:out value="${user.getHero().getHeroType()}"/></td>
+
+    </tr>
+    <tr>
+        <th>Opponent Information</th>
         <td><%--@elvariable id="opponent" type="edu.db.myBrute.domain.GameUser"--%>
             <c:out value="${opponent.getHero().getHeroId()}"/></td>
-    </tr>
-    <tr>
-        <th>Username</th>
-        <td><c:out value="${user.getUsername()}"/></td>
         <td><c:out value="${opponent.getUsername()}"/></td>
-    </tr>
-    <tr>
-        <th>Level</th>
-        <td><c:out value="${user.getLevelId()}"/></td>
         <td><c:out value="${opponent.getLevelId()}"/></td>
-    </tr>
-    <tr>
-        <th>Health Point</th>
-        <td><c:out value="${user.getHealthPoint()}"/></td>
+        <td><c:out value="${opponent.getExperience()}"/></td>
         <td><c:out value="${opponent.getHealthPoint()}"/></td>
-    </tr>
-    <tr>
-        <th>Strength</th>
-        <td><c:out value="${user.getHero().getStrength()}"/></td>
         <td><c:out value="${opponent.getHero().getStrength()}"/></td>
-    </tr>
-    <tr>
-        <th>Agility</th>
-        <td><c:out value="${user.getHero().getAgility()}"/></td>
         <td><c:out value="${opponent.getHero().getAgility()}"/></td>
-    </tr>
-    <tr>
-        <th>Speed</th>
-        <td><c:out value="${user.getHero().getSpeed()}"/></td>
         <td><c:out value="${opponent.getHero().getSpeed()}"/></td>
-    </tr>
-    <tr>
-        <th>Type</th>
-        <td><c:out value="${user.getHero().getHeroType()}"/></td>
         <td><c:out value="${opponent.getHero().getHeroType()}"/></td>
     </tr>
 </table>

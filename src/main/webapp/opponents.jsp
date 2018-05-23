@@ -18,7 +18,7 @@
 <h2>Opponents</h2>
 
 <p><%--@elvariable id="user" type="edu.db.myBrute.domain.GameUser"--%>
-    You have <c:out value="${user.getLeftFigths()}"/> fights left!
+    You have <c:out value="${user.getLeftFights()}"/> fights left!
 </p>
 
 <table cellpadding=5>
@@ -47,8 +47,8 @@
             <td><c:out value="${opponent.getHero().getSpeed()}"/></td>
             <td><c:out value="${opponent.getHero().getHeroType()}"/></td>
             <c:choose>
-                <c:when test="${user.getLeftFigths() > 0}">
-                    <td><a href="playGame?opponentUsername=${opponent.getUsername()}">Choose for Play</a></td>
+                <c:when test="${user.getLeftFights() > 0}">
+                    <td><a href="play?opponentUsername=${opponent.getUsername()}">Choose for Play</a></td>
                 </c:when>
                 <c:otherwise>
                     <td></td>

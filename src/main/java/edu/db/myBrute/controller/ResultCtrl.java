@@ -27,6 +27,9 @@ public class ResultCtrl extends HttpServlet {
                 response.sendRedirect("login");
             } else {
                 opponent = gameService.loadUserByUsername(request.getParameter("opponentUsername"));
+
+                gameService.attackTo(opponent.getUsername());
+
                 winner = gameService.getWinner();
 
                 request.setAttribute("winner", winner);
@@ -34,7 +37,7 @@ public class ResultCtrl extends HttpServlet {
 
                 request.getRequestDispatcher("result.jsp").forward(request, response);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException  e) {
             e.printStackTrace();
 
             request.setAttribute("message", e.getMessage());

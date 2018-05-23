@@ -23,7 +23,7 @@ public class OpponentsCtrl extends HttpServlet {
             if (currentUser == null) {
                 response.sendRedirect("login");
             } else {
-                request.setAttribute("currentUser", currentUser);
+                request.setAttribute("user", currentUser);
 
                 request.setAttribute("opponents", gameService.getOpponentsFor(currentUser));
 
