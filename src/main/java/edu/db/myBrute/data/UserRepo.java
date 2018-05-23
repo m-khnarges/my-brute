@@ -13,7 +13,7 @@ public class UserRepo {
 
     private UserRepo() {
         // Create a variable for the connection string.
-        String connectionUrl = "jdbc:sqlserver://169.254.240.110:1433;database=my_brute";
+        String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=my_brute";
 
         try {
             // Establish the connection.
