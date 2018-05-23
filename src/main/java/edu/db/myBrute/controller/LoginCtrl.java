@@ -24,14 +24,16 @@ public class LoginCtrl extends HttpServlet {
             } else {
                 userRepo.login(request.getParameter("username"), request.getParameter("password"));
 
-                response.sendRedirect("/firstPage");
+                response.sendRedirect("firstPage");
             }
 
         } catch (IllegalArgumentException e) { // Wrong username or password
+            e.printStackTrace();
             request.setAttribute("message", e.getMessage());
 
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (SQLException e) {
+            e.printStackTrace();
             request.setAttribute("message", e.getMessage());
 
             request.getRequestDispatcher("error.jsp").forward(request, response);

@@ -21,7 +21,7 @@ public class ResultCtrl extends HttpServlet {
         GameUser winner;
 
         if (user == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("login");
         } else {
             try {
                 opponent = userRepo.loadUserByUsername(request.getParameter("opponentUsername"));

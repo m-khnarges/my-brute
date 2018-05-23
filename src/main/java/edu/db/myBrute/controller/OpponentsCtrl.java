@@ -19,7 +19,7 @@ public class OpponentsCtrl extends HttpServlet {
         GameUser user = userRepo.currentUser();
 
         if (user == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("login");
         } else {
             request.setAttribute("user", user);
 

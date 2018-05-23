@@ -29,8 +29,9 @@ public class SignUpCtrl extends HttpServlet {
         try {
             userRepo.signUp(username, password);
 
-            response.sendRedirect("/login");
+            response.sendRedirect("login");
         } catch (SQLException e) {
+            e.printStackTrace();
             request.setAttribute("message", e.getMessage());
 
             request.getRequestDispatcher("error.jsp").forward(request, response);

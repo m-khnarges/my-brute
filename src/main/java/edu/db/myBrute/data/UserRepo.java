@@ -20,14 +20,8 @@ public class UserRepo {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(connectionUrl);
         } catch (Exception e) {
-            System.out.println("ERROR CONNECTING DATABASE");
             e.printStackTrace();
-        } finally {
-            if (connection != null) try {
-                connection.close();
-            } catch (Exception e) {
-                System.out.println("CONNECTION CLOSE EXCEPTION");
-            }
+            System.out.println("ERROR CONNECTING DATABASE");
         }
     }
 
@@ -45,7 +39,7 @@ public class UserRepo {
 
     public void login(String username, String password) throws SQLException {
         GameUser user = new GameUser();
-        String query = "EXEC Login ?, ?";
+        String query = "SELECT * FROM Login(?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 

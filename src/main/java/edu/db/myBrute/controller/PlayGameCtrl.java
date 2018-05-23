@@ -20,7 +20,7 @@ public class PlayGameCtrl extends HttpServlet {
         GameUser opponent = null;
 
         if (user == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("login");
         } else {
             try {
                 opponent = userRepo.loadUserByUsername(request.getParameter("opponentUsername"));
