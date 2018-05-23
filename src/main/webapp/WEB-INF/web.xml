@@ -17,8 +17,8 @@
     </servlet>
 
     <servlet>
-        <servlet-name>home</servlet-name>
-        <servlet-class>edu.db.myBrute.controller.HomeCtrl</servlet-class>
+        <servlet-name>firstPage</servlet-name>
+        <servlet-class>edu.db.myBrute.controller.FirstPageCtrl</servlet-class>
     </servlet>
 
     <servlet>
@@ -53,8 +53,8 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>home</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <servlet-name>firstPage</servlet-name>
+        <url-pattern>/firstPage</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

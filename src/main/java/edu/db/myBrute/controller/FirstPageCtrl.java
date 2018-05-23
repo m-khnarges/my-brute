@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/home")
-public class HomeCtrl extends HttpServlet {
+@WebServlet("/firstPage")
+public class FirstPageCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserRepo userRepo = UserRepo.getInstance();
@@ -23,7 +23,7 @@ public class HomeCtrl extends HttpServlet {
         } else {
             request.setAttribute("user", user);
 
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            request.getRequestDispatcher("firstPage.jsp").forward(request, response);
         }
     }
 }

@@ -14,7 +14,7 @@
     <link rel="icon" href="assets/favicon.ico">
 </head>
 <body>
-<h2>Home</h2>
+<h2>Play Game</h2>
 <table cellpadding=5>
     <tr>
         <th></th>

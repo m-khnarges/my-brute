@@ -24,7 +24,7 @@ public class LoginCtrl extends HttpServlet {
             } else {
                 userRepo.login(request.getParameter("username"), request.getParameter("password"));
 
-                response.sendRedirect("/home");
+                response.sendRedirect("/firstPage");
             }
 
         } catch (IllegalArgumentException e) { // Wrong username or password
