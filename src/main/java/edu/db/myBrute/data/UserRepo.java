@@ -13,14 +13,15 @@ public class UserRepo {
 
     private UserRepo() {
         // Create a variable for the connection string.
-        String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=my_brute";
+        String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=my_brute;integratedSecurity=true";
 
         try {
             // Establish the connection.
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(connectionUrl);
         } catch (Exception e) {
-            System.out.println("ERROR CONNECTING TO DATABASE");
+            System.out.println("ERROR CONNECTING DATABASE");
+            e.printStackTrace();
         } finally {
             if (connection != null) try {
                 connection.close();
