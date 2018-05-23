@@ -1,6 +1,5 @@
 package edu.db.myBrute.data;
 
-import com.sun.org.apache.regexp.internal.RE;
 import edu.db.myBrute.domain.GameUser;
 import edu.db.myBrute.domain.Weapon;
 
@@ -64,11 +63,11 @@ public class GameService {
     public List<GameUser> getOpponentsFor(GameUser user) throws SQLException {
         List<GameUser> opponents = new ArrayList<>();
 
-        String query = "SELECT * FROM dbo.opponents WHERE Level_Id != ?";
+        String query = "SELECT * FROM ShowAvaliableOpponents (?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-        preparedStatement.setInt(1, user.getLevelId());
+        preparedStatement.setString(1, user.getUsername());
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -77,14 +76,16 @@ public class GameService {
 
             opponent.setUsername(resultSet.getString("Username"));
             opponent.setExperience(resultSet.getInt("Experience"));
-            opponent.setExperience(resultSet.getInt("Level_Id"));
-
+            opponent.setLevelId(resultSet.getInt("Level_Id"));
             opponent.setHealthPoint(resultSet.getInt("Health_Point"));
             opponent.setLeftFights(resultSet.getInt("Left_fights"));
+
             opponent.getHero().setStrength(resultSet.getInt("Strength"));
             opponent.getHero().setAgility(resultSet.getInt("Agility"));
             opponent.getHero().setSpeed(resultSet.getInt("Speed"));
             opponent.getHero().setHeroType(resultSet.getInt("Hero_Type"));
+
+            opponent.setWeapons(getWeaponsFor(opponent.getUsername()));
 
             opponents.add(opponent);
         }
@@ -109,7 +110,7 @@ public class GameService {
         if (resultSet.next()) {
             user.setUsername(resultSet.getString("Username"));
             user.setExperience(resultSet.getInt("Experience"));
-            user.setExperience(resultSet.getInt("Level_Id"));
+            user.setLevelId(resultSet.getInt("Level_Id"));
 
             user = getHeroInfoFor(user);
 
