@@ -39,7 +39,7 @@
         <tr>
             <td><c:out value="${opponent.getHero().getHeroId()}"/></td>
             <td><c:out value="${opponent.getUsername()}"/></td>
-            <td><c:out value="${opponent.getLevel().getLevelId()}"/></td>
+            <td><c:out value="${opponent.getLevelId()}"/></td>
             <td><c:out value="${opponent.getExperience()}"/></td>
             <td><c:out value="${opponent.getHealthPoint()}"/></td>
             <td><c:out value="${opponent.getHero().getStrength()}"/></td>
@@ -59,7 +59,7 @@
     <tr>
         <td><c:out value="${user.getHero().getHeroId()}"/></td>
         <td><c:out value="${user.getUsername()}"/></td>
-        <td><c:out value="${user.getLevel().getLevelId()}"/></td>
+        <td><c:out value="${user.getLevelId()}"/></td>
         <td><c:out value="${user.getExperience()}"/></td>
         <td><c:out value="${user.getHealthPoint()}"/></td>
         <td><c:out value="${user.getHero().getStrength()}"/></td>

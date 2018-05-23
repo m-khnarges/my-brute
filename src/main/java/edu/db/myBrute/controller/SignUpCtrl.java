@@ -1,6 +1,6 @@
 package edu.db.myBrute.controller;
 
-import edu.db.myBrute.data.UserRepo;
+import edu.db.myBrute.data.GameService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class SignUpCtrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserRepo userRepo = UserRepo.getInstance();
+        GameService gameService = GameService.getInstance();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -27,11 +27,12 @@ public class SignUpCtrl extends HttpServlet {
         }
 
         try {
-            userRepo.signUp(username, password);
+            gameService.signUp(username, password);
 
             response.sendRedirect("login");
         } catch (SQLException e) {
             e.printStackTrace();
+
             request.setAttribute("message", e.getMessage());
 
             request.getRequestDispatcher("error.jsp").forward(request, response);

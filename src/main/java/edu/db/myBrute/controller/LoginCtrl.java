@@ -1,6 +1,6 @@
 package edu.db.myBrute.controller;
 
-import edu.db.myBrute.data.UserRepo;
+import edu.db.myBrute.data.GameService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,25 +14,19 @@ import java.sql.SQLException;
 public class LoginCtrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserRepo userRepo = UserRepo.getInstance();
+        GameService gameService = GameService.getInstance();
 
         try {
-            if (userRepo.currentUser() != null) {
+            if (gameService.currentUser() != null) {
                 request.setAttribute("message", "You are already logged in!");
 
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             } else {
-                userRepo.login(request.getParameter("username"), request.getParameter("password"));
+                gameService.login(request.getParameter("username"), request.getParameter("password"));
 
-                response.sendRedirect("firstPage");
+                response.sendRedirect("home");
             }
-
-        } catch (IllegalArgumentException e) { // Wrong username or password
-            e.printStackTrace();
-            request.setAttribute("message", e.getMessage());
-
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        } catch (SQLException e) {
+        } catch (IllegalArgumentException | SQLException e) {
             e.printStackTrace();
             request.setAttribute("message", e.getMessage());
 

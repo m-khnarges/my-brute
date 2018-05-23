@@ -1,6 +1,6 @@
 package edu.db.myBrute.controller;
 
-import edu.db.myBrute.data.UserRepo;
+import edu.db.myBrute.data.GameService;
 import edu.db.myBrute.domain.GameUser;
 
 import javax.servlet.ServletException;
@@ -15,27 +15,31 @@ import java.sql.SQLException;
 public class ResultCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserRepo userRepo = UserRepo.getInstance();
-        GameUser user = userRepo.currentUser();
-        GameUser opponent;
-        GameUser winner;
+        GameService gameService = GameService.getInstance();
 
-        if (user == null) {
-            response.sendRedirect("login");
-        } else {
-            try {
-                opponent = userRepo.loadUserByUsername(request.getParameter("opponentUsername"));
-                winner = userRepo.getWinner();
+
+        try {
+            GameUser user = gameService.currentUser();
+            GameUser opponent;
+            GameUser winner;
+
+            if (user == null) {
+                response.sendRedirect("login");
+            } else {
+                opponent = gameService.loadUserByUsername(request.getParameter("opponentUsername"));
+                winner = gameService.getWinner();
 
                 request.setAttribute("winner", winner);
                 request.setAttribute("looser", user.getUsername().equals(winner.getUsername()) ? opponent : user);
 
                 request.getRequestDispatcher("result.jsp").forward(request, response);
-            } catch (SQLException e) {
-                request.setAttribute("message", e.getMessage());
-
-                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            request.setAttribute("message", e.getMessage());
+
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 }

@@ -1,6 +1,6 @@
 package edu.db.myBrute.controller;
 
-import edu.db.myBrute.data.UserRepo;
+import edu.db.myBrute.data.GameService;
 import edu.db.myBrute.domain.GameUser;
 
 import javax.servlet.ServletException;
@@ -15,21 +15,26 @@ import java.sql.SQLException;
 public class OpponentsCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserRepo userRepo = UserRepo.getInstance();
-        GameUser user = userRepo.currentUser();
+        GameService gameService = GameService.getInstance();
 
-        if (user == null) {
-            response.sendRedirect("login");
-        } else {
-            request.setAttribute("user", user);
+        try {
+            GameUser currentUser = gameService.currentUser();
 
-            try {
-                request.setAttribute("opponents", userRepo.getOpponents());
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            if (currentUser == null) {
+                response.sendRedirect("login");
+            } else {
+                request.setAttribute("currentUser", currentUser);
+
+                request.setAttribute("opponents", gameService.getOpponentsFor(currentUser));
+
+                request.getRequestDispatcher("opponents.jsp").forward(request, response);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
 
-            request.getRequestDispatcher("opponents.jsp").forward(request, response);
+            request.setAttribute("message", e.getMessage());
+
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 }

@@ -1,17 +1,19 @@
 package edu.db.myBrute.data;
 
+import com.sun.org.apache.regexp.internal.RE;
 import edu.db.myBrute.domain.GameUser;
+import edu.db.myBrute.domain.Weapon;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepo {
+public class GameService {
     private Connection connection;
-    private GameUser gameUser = null;
-    private static UserRepo userRepo = new UserRepo();
+    private String currentUsername = null;
+    private static GameService gameService = new GameService();
 
-    private UserRepo() {
+    private GameService() {
         // Create a variable for the connection string.
         String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=my_brute;integratedSecurity=true";
 
@@ -25,22 +27,22 @@ public class UserRepo {
         }
     }
 
-    public static UserRepo getInstance() {
-        return userRepo;
+    public static GameService getInstance() {
+        return gameService;
     }
 
     public void signUp(String username, String password) throws SQLException {
         String query = "EXEC SignUP ?, ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        CallableStatement callableStatement = connection.prepareCall(query);
 
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, password);
+        callableStatement.setString(1, username);
+        callableStatement.setString(2, password);
+
+        callableStatement.execute();
     }
 
     public void login(String username, String password) throws SQLException {
-        GameUser user = new GameUser();
-        String query = "SELECT * FROM Login(?, ?)";
-
+        String query = "SELECT * FROM Login (?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         preparedStatement.setString(1, username);
@@ -49,38 +51,24 @@ public class UserRepo {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            user.setUsername(resultSet.getString("Username"));
-            user.setExperience(resultSet.getInt("Experience"));
-            user.setExperience(resultSet.getInt("Level_Id"));
-
-            query = "SELECT * FROM dbo.hero_info WHERE Username = ?";
-
-            preparedStatement = connection.prepareStatement(query);
-
-            preparedStatement.setString(1, username);
-
-            resultSet = preparedStatement.executeQuery();
-
-            user = getHeroInfo(user, resultSet);
-
-            this.gameUser = user;
+            this.currentUsername = resultSet.getString("Username");
         } else {
             throw new IllegalArgumentException("Wrong username or password");
         }
     }
 
     public void logout() {
-        this.gameUser = null;
+        this.currentUsername = null;
     }
 
-    public List<GameUser> getOpponents() throws SQLException {
-        List<GameUser> opponents = new ArrayList<GameUser>();
+    public List<GameUser> getOpponentsFor(GameUser user) throws SQLException {
+        List<GameUser> opponents = new ArrayList<>();
 
         String query = "SELECT * FROM dbo.opponents WHERE Level_Id != ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-        preparedStatement.setInt(1, gameUser.getLevelId());
+        preparedStatement.setInt(1, user.getLevelId());
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -104,8 +92,8 @@ public class UserRepo {
         return opponents;
     }
 
-    public GameUser currentUser() {
-        return this.gameUser;
+    public GameUser currentUser() throws SQLException {
+        return loadUserByUsername(this.currentUsername);
     }
 
     public GameUser loadUserByUsername(String username) throws SQLException {
@@ -123,22 +111,22 @@ public class UserRepo {
             user.setExperience(resultSet.getInt("Experience"));
             user.setExperience(resultSet.getInt("Level_Id"));
 
-            query = "SELECT * FROM dbo.hero_info WHERE Username = ?";
+            user = getHeroInfoFor(user);
 
-            preparedStatement = connection.prepareStatement(query);
+            user.setWeapons(getWeaponsFor(username));
 
-            preparedStatement.setString(1, username);
-
-            resultSet = preparedStatement.executeQuery();
-
-            user = getHeroInfo(user, resultSet);
-
+            return user;
+        } else {
+            return null;
         }
-
-        return user;
     }
 
-    private GameUser getHeroInfo(GameUser user, ResultSet resultSet) throws SQLException {
+    private GameUser getHeroInfoFor(GameUser user) throws SQLException {
+        String sql = "SELECT * FROM dbo.hero_info WHERE Username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, user.getUsername());
+        ResultSet resultSet = preparedStatement.executeQuery();
+
         if (resultSet.next()) {
             user.setHealthPoint(resultSet.getInt("Health_Point"));
             user.setLeftFights(resultSet.getInt("Left_fights"));
@@ -151,12 +139,55 @@ public class UserRepo {
         return user;
     }
 
-    public void attack(String myUsername, String opponentUsername) throws SQLException {
+    private List<Weapon> getWeaponsFor(String username) throws SQLException {
+        List<Weapon> weapons = new ArrayList<>();
+
+        String sql = "SELECT * FROM BruteWeapons (?)";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, username);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            weapons.add(getWeaponInfo(resultSet.getInt("Weapon_Id")));
+        }
+
+        return weapons;
+    }
+
+    private Weapon getWeaponInfo(int weaponId) throws SQLException {
+        Weapon weapon = new Weapon();
+
+        String sql = "SELECT * FROM dbo.Weapon WHERE Weapon_Id = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setInt(1, weaponId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            weapon.setWeaponId(weaponId);
+            weapon.setAgility(resultSet.getInt("Agility"));
+            weapon.setSpeed(resultSet.getInt("Speed"));
+            weapon.setStrength(resultSet.getInt("Strength"));
+            weapon.setChance(resultSet.getInt("Chance"));
+            weapon.setLevelId(resultSet.getInt("Level_Id"));
+        } else {
+            throw new IllegalArgumentException("Invalid Weapon Id");
+        }
+
+        return weapon;
+    }
+
+    public void attackTo(String opponentUsername) throws SQLException {
         String query = "EXEC Attacking ?, ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-        preparedStatement.setString(1, myUsername);
+        preparedStatement.setString(1, this.currentUsername);
         preparedStatement.setString(2, opponentUsername);
 
         preparedStatement.executeQuery();
@@ -175,16 +206,9 @@ public class UserRepo {
             winner.setExperience(resultSet.getInt("Experience"));
             winner.setExperience(resultSet.getInt("Level_Id"));
 
-            query = "SELECT * FROM dbo.hero_info WHERE Username = ?";
+            winner = getHeroInfoFor(winner);
 
-            preparedStatement = connection.prepareStatement(query);
-
-            preparedStatement.setString(1, winner.getUsername());
-
-            resultSet = preparedStatement.executeQuery();
-
-            winner = getHeroInfo(winner, resultSet);
-
+            winner.setWeapons(getWeaponsFor(winner.getUsername()));
         }
 
         return winner;

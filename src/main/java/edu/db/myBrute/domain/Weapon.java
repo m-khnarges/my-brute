@@ -6,19 +6,7 @@ public class Weapon {
     private int agility;
     private int speed;
     private int chance;
-    private GameLevel level;
-
-    public Weapon() {
-    }
-
-    public Weapon(int weaponId, int strength, int agility, int speed, int chance, GameLevel level) {
-        this.weaponId = weaponId;
-        this.strength = strength;
-        this.agility = agility;
-        this.speed = speed;
-        this.chance = chance;
-        this.level = level;
-    }
+    private int levelId;
 
     public int getWeaponId() {
         return weaponId;
@@ -60,11 +48,11 @@ public class Weapon {
         this.chance = chance;
     }
 
-    public GameLevel getLevel() {
-        return level;
+    public int getLevelId() {
+        return levelId;
     }
 
-    public void setLevel(GameLevel level) {
-        this.level = level;
+    public void setLevelId(int levelId) {
+        this.levelId = levelId;
     }
 }

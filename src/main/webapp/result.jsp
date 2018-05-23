@@ -28,7 +28,7 @@
     </tr>
     <tr>
         <th>Level</th>
-        <td><c:out value="${winner.getLevel().getLevelId()}"/></td>
+        <td><c:out value="${winner.getLevelId()}"/></td>
     </tr>
     <tr>
         <th>Experience</th>
@@ -68,7 +68,7 @@
     </tr>
     <tr>
         <th>Level</th>
-        <td><c:out value="${looser.getLevel().getLevelId()}"/></td>
+        <td><c:out value="${looser.getLevelId()}"/></td>
     </tr>
     <tr>
         <th>Experience</th>

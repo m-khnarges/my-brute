@@ -1,5 +1,6 @@
 package edu.db.myBrute.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameUser {
@@ -13,6 +14,7 @@ public class GameUser {
 
     public GameUser() {
         hero = new Hero();
+        weapons = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -69,5 +71,9 @@ public class GameUser {
 
     public void setWeapons(List<Weapon> weapons) {
         this.weapons = weapons;
+    }
+
+    public void addWeapon(Weapon weapon) {
+        weapons.add(weapon);
     }
 }

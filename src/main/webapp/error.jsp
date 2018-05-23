@@ -20,6 +20,6 @@
 <p><%--@elvariable id="message" type="java.lang.String"--%>
     <c:out value="${message}"/></p>
 
-<a style="margin-top: 15px;" href="/">Return to Main Menu</a>
+<a style="margin-top: 15px;" href="myBrute">Return to Main Menu</a>
 </body>
 </html>

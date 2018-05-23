@@ -7,17 +7,6 @@ public class Hero {
     private int speed;
     private int heroType;
 
-    public Hero() {
-    }
-
-    public Hero(int heroId, int strength, int agility, int speed, int heroType) {
-        this.heroId = heroId;
-        this.strength = strength;
-        this.agility = agility;
-        this.speed = speed;
-        this.heroType = heroType;
-    }
-
     public int getHeroId() {
         return heroId;
     }

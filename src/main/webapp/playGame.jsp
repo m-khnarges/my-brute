@@ -35,8 +35,8 @@
     </tr>
     <tr>
         <th>Level</th>
-        <td><c:out value="${user.getLevel().getLevelId()}"/></td>
-        <td><c:out value="${opponent.getLevel().getLevelId()}"/></td>
+        <td><c:out value="${user.getLevelId()}"/></td>
+        <td><c:out value="${opponent.getLevelId()}"/></td>
     </tr>
     <tr>
         <th>Health Point</th>
