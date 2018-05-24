@@ -26,16 +26,22 @@ public class ResultCtrl extends HttpServlet {
             if (user == null) {
                 response.sendRedirect("login");
             } else {
+                if (user.getLeftFights() < 1) {
+                    request.setAttribute("message", "You have no fights left for today!");
 
-                gameService.attackTo(request.getParameter("opponentUsername"));
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                } else {
+                    gameService.attackTo(request.getParameter("opponentUsername"));
 
-                opponent = gameService.loadUserByUsername(request.getParameter("opponentUsername"));
-                winner = gameService.getWinner();
+                    user = gameService.currentUser();
+                    opponent = gameService.loadUserByUsername(request.getParameter("opponentUsername"));
+                    winner = gameService.getWinner();
 
-                request.setAttribute("winner", winner);
-                request.setAttribute("looser", user.getUsername().equals(winner.getUsername()) ? opponent : user);
+                    request.setAttribute("winner", winner);
+                    request.setAttribute("looser", user.getUsername().equals(winner.getUsername()) ? opponent : user);
 
-                request.getRequestDispatcher("result.jsp").forward(request, response);
+                    request.getRequestDispatcher("result.jsp").forward(request, response);
+                }
             }
         } catch (SQLException | NullPointerException  e) {
             e.printStackTrace();
