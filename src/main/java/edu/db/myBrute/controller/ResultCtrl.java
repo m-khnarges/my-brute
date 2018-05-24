@@ -26,10 +26,10 @@ public class ResultCtrl extends HttpServlet {
             if (user == null) {
                 response.sendRedirect("login");
             } else {
+
+                gameService.attackTo(request.getParameter("opponentUsername"));
+
                 opponent = gameService.loadUserByUsername(request.getParameter("opponentUsername"));
-
-                gameService.attackTo(opponent.getUsername());
-
                 winner = gameService.getWinner();
 
                 request.setAttribute("winner", winner);

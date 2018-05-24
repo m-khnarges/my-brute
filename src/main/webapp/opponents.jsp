@@ -28,6 +28,7 @@
         <th>Level</th>
         <th>Experience</th>
         <th>Health Point</th>
+        <th>Left Fights</th>
         <th>Strength</th>
         <th>Agility</th>
         <th>Speed</th>
@@ -42,18 +43,12 @@
             <td><c:out value="${opponent.getLevelId()}"/></td>
             <td><c:out value="${opponent.getExperience()}"/></td>
             <td><c:out value="${opponent.getHealthPoint()}"/></td>
+            <td><c:out value="${opponent.getLeftFights()}"/></td>
             <td><c:out value="${opponent.getHero().getStrength()}"/></td>
             <td><c:out value="${opponent.getHero().getAgility()}"/></td>
             <td><c:out value="${opponent.getHero().getSpeed()}"/></td>
             <td><c:out value="${opponent.getHero().getHeroType()}"/></td>
-            <c:choose>
-                <c:when test="${user.getLeftFights() > 0}">
-                    <td><a href="play?opponentUsername=${opponent.getUsername()}">Choose for Play</a></td>
-                </c:when>
-                <c:otherwise>
-                    <td></td>
-                </c:otherwise>
-            </c:choose>
+            <td><a href="play?opponentUsername=${opponent.getUsername()}">Choose for Play</a></td>
         </tr>
     </c:forEach>
     <tr>
@@ -62,6 +57,7 @@
         <td><c:out value="${user.getLevelId()}"/></td>
         <td><c:out value="${user.getExperience()}"/></td>
         <td><c:out value="${user.getHealthPoint()}"/></td>
+        <td><c:out value="${user.getLeftFights()}"/></td>
         <td><c:out value="${user.getHero().getStrength()}"/></td>
         <td><c:out value="${user.getHero().getAgility()}"/></td>
         <td><c:out value="${user.getHero().getSpeed()}"/></td>

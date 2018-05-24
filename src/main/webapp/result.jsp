@@ -23,6 +23,7 @@
         <th>Level</th>
         <th>Experience</th>
         <th>Health Point</th>
+        <th>Left Fights</th>
         <th>Strength</th>
         <th>Agility</th>
         <th>Speed</th>
@@ -36,6 +37,7 @@
         <td><c:out value="${winner.getLevelId()}"/></td>
         <td><c:out value="${winner.getExperience()}"/></td>
         <td><c:out value="${winner.getHealthPoint()}"/></td>
+        <td><c:out value="${winner.getLeftFights()}"/></td>
         <td><c:out value="${winner.getHero().getStrength()}"/></td>
         <td><c:out value="${winner.getHero().getAgility()}"/></td>
         <td><c:out value="${winner.getHero().getSpeed()}"/></td>
@@ -49,6 +51,7 @@
         <td><c:out value="${looser.getLevelId()}"/></td>
         <td><c:out value="${looser.getExperience()}"/></td>
         <td><c:out value="${looser.getHealthPoint()}"/></td>
+        <td><c:out value="${looser.getLeftFights()}"/></td>
         <td><c:out value="${looser.getHero().getStrength()}"/></td>
         <td><c:out value="${looser.getHero().getAgility()}"/></td>
         <td><c:out value="${looser.getHero().getSpeed()}"/></td>

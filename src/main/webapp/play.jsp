@@ -7,7 +7,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page isELIgnored="false" %>" %>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Play</title>
@@ -23,6 +23,7 @@
         <th>Level</th>
         <th>Experience</th>
         <th>Health Point</th>
+        <th>Left Fights</th>
         <th>Strength</th>
         <th>Agility</th>
         <th>Speed</th>
@@ -36,6 +37,7 @@
         <td><c:out value="${user.getLevelId()}"/></td>
         <td><c:out value="${user.getExperience()}"/></td>
         <td><c:out value="${user.getHealthPoint()}"/></td>
+        <td><c:out value="${user.getLeftFights()}"/></td>
         <td><c:out value="${user.getHero().getStrength()}"/></td>
         <td><c:out value="${user.getHero().getAgility()}"/></td>
         <td><c:out value="${user.getHero().getSpeed()}"/></td>
@@ -50,6 +52,7 @@
         <td><c:out value="${opponent.getLevelId()}"/></td>
         <td><c:out value="${opponent.getExperience()}"/></td>
         <td><c:out value="${opponent.getHealthPoint()}"/></td>
+        <td><c:out value="${opponent.getLeftFights()}"/></td>
         <td><c:out value="${opponent.getHero().getStrength()}"/></td>
         <td><c:out value="${opponent.getHero().getAgility()}"/></td>
         <td><c:out value="${opponent.getHero().getSpeed()}"/></td>

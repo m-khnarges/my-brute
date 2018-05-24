@@ -23,6 +23,7 @@
         <th>Level</th>
         <th>Experience</th>
         <th>Health Point</th>
+        <th>Left Fights</th>
         <th>Strength</th>
         <th>Agility</th>
         <th>Speed</th>
@@ -35,6 +36,7 @@
         <td><c:out value="${user.getLevelId()}"/></td>
         <td><c:out value="${user.getExperience()}"/></td>
         <td><c:out value="${user.getHealthPoint()}"/></td>
+        <td><c:out value="${user.getLeftFights()}"/></td>
         <td><c:out value="${user.getHero().getStrength()}"/></td>
         <td><c:out value="${user.getHero().getAgility()}"/></td>
         <td><c:out value="${user.getHero().getSpeed()}"/></td>

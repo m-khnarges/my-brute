@@ -129,26 +129,6 @@ public class GameService {
         }
     }
 
-    private GameUser getHeroInfoFor(GameUser user) throws SQLException {
-        String sql = "SELECT * FROM dbo.hero_info WHERE Username = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, user.getUsername());
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        if (resultSet.next()) {
-            user.setHealthPoint(resultSet.getInt("Health_Point"));
-            user.setLeftFights(resultSet.getInt("Left_fights"));
-
-            user.getHero().setHeroId(resultSet.getInt("Hero_Id"));
-            user.getHero().setStrength(resultSet.getInt("Strength"));
-            user.getHero().setAgility(resultSet.getInt("Agility"));
-            user.getHero().setSpeed(resultSet.getInt("Speed"));
-            user.getHero().setHeroType(resultSet.getInt("Hero_Type"));
-        }
-
-        return user;
-    }
-
     private List<Weapon> getWeaponsFor(String username) throws SQLException {
         List<Weapon> weapons = new ArrayList<>();
 
@@ -212,13 +192,7 @@ public class GameService {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            winner.setUsername(resultSet.getString("Username"));
-            winner.setExperience(resultSet.getInt("Experience"));
-            winner.setLevelId(resultSet.getInt("Level_Id"));
-
-            winner = getHeroInfoFor(winner);
-
-            winner.setWeapons(getWeaponsFor(winner.getUsername()));
+            winner = loadUserByUsername(resultSet.getString("Winner"));
         }
 
         return winner;
